@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1073678099525",
+    "firebase_url": "https://shop-app-79ea9-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "shop-app-79ea9",
+    "storage_bucket": "shop-app-79ea9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073678099525:android:76cae56ab355b0ed0aaf2c",
+        "android_client_info": {
+          "package_name": "com.meyo.shop_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073678099525-nk0emade8qispu3bs278as190tu601ud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmyvH2kRHAUWPi_7aRWvNuj85KgxvVZKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073678099525-nk0emade8qispu3bs278as190tu601ud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
