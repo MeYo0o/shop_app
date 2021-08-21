@@ -1,6 +1,6 @@
 # shop_app
 
-4th application in Max's course series
+
 
 ## Getting Started
 
