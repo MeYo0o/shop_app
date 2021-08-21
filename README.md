@@ -1,6 +1,6 @@
 # shop_app
 
-# This is a simple Shop App using Provider as State Managment -- Applying what i've learned 
+This is a simple Shop App using Provider as State Managment -- Applying what i've learned 
 
 ## Getting Started
 
