@@ -18,6 +18,11 @@ class OrderItem {
 }
 
 class Orders with ChangeNotifier {
+  //to handle both authToken and previousOrders
+  final String authToken;
+  final String userId;
+  Orders(this.authToken, this.userId, this._orders);
+
   List<OrderItem> _orders = [];
 
   List<OrderItem> get orders {
@@ -25,8 +30,8 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> fetchNSetOrders() async {
-    final String url =
-        'https://shop-app-79ea9-default-rtdb.europe-west1.firebasedatabase.app/orders.json';
+    final String url = 'https://shop-app-79ea9-default-rtdb.europe-west1.firebasedatabase.app/orders/$userId'
+        '.json?auth=$authToken';
     List<OrderItem> loadedOrders = [];
     final response = await http.get(Uri.parse(url));
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -59,8 +64,8 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> addOrders(List<CartItem> cartProducts, double total) async {
-    const String url =
-        'https://shop-app-79ea9-default-rtdb.europe-west1.firebasedatabase.app/orders.json';
+    final String url =
+        'https://shop-app-79ea9-default-rtdb.europe-west1.firebasedatabase.app/orders/$userId.json?auth=$authToken';
 
     //so we can be consistent about time in both http request and app memory
     final timeStamp = DateTime.now();

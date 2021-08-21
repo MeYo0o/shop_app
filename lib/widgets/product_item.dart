@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/models/provider_auth.dart';
 
 import 'package:shop_app/models/provider_product.dart';
 // import 'package:shop_app/models/provider_products.dart';
@@ -31,12 +32,18 @@ class ProductItem extends StatelessWidget {
           onTap: () {
             Navigator.of(context).pushNamed(
               ProductDetailScreen.id,
-              arguments: product.id,
+              arguments: product.productId,
             );
           },
-          child: Image.network(
-            product.imageUrl,
-            fit: BoxFit.cover,
+          child: Hero(
+            tag: product.productId,
+            child: FadeInImage(
+              placeholder: AssetImage('assets/images/product_placeHolder.png'),
+              image: NetworkImage(
+                product.imageUrl,
+              ),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         footer: GridTileBar(
@@ -47,7 +54,9 @@ class ProductItem extends StatelessWidget {
                 color: Theme.of(context).accentColor,
               ),
               onPressed: () {
-                product.toggleFavorite();
+                final authToken = Provider.of<Auth>(context, listen: false).token;
+                final userId = Provider.of<Auth>(context, listen: false).userId;
+                product.toggleFavorite(authToken, userId);
                 //Now is handled in Product.dart
                 // products.updateProductFavoriteStatus(product.id, product);
               },
@@ -64,9 +73,7 @@ class ProductItem extends StatelessWidget {
           trailing: Consumer<Cart>(
             builder: (context, cart, child) => IconButton(
               icon: Icon(
-                cart.isInCart(product.id)
-                    ? Icons.shopping_cart
-                    : Icons.shopping_cart_outlined,
+                cart.isInCart(product.productId) ? Icons.shopping_cart : Icons.shopping_cart_outlined,
                 color: Theme.of(context).accentColor,
               ),
               onPressed: () {
@@ -84,7 +91,7 @@ class ProductItem extends StatelessWidget {
                 //   cart.removeProduct(product.id);
                 // }
                 cart.addProduct(
-                  product.id,
+                  product.productId,
                   product.title,
                   product.price,
                 );
@@ -104,7 +111,7 @@ class ProductItem extends StatelessWidget {
                     action: SnackBarAction(
                       label: 'UNDO',
                       onPressed: () {
-                        cart.removeSingleProduct(product.id);
+                        cart.removeSingleProduct(product.productId);
                       },
                     ),
                   ),

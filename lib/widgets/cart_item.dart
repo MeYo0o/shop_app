@@ -78,8 +78,7 @@ class CartItem extends StatelessWidget {
               ),
             ),
             title: Text(title),
-            subtitle:
-                Text('Total : ${(quantity * price).toStringAsFixed(2)}\$'),
+            subtitle: Text('Total : ${(quantity * price).toStringAsFixed(2)}\$'),
             trailing: Text('X : $quantity'),
           ),
         ),

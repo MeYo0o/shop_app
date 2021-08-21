@@ -22,9 +22,8 @@ class _OrderItemState extends State<OrderItem> {
       child: Column(
         children: [
           ListTile(
-            title: Text('${(widget.orderItem.amount).toStringAsFixed(2)} \$'),
-            subtitle: Text(
-                '${DateFormat('dd/mm/yyyy hh:mm').format(widget.orderItem.dateTime)}'),
+            title: Text('${widget.orderItem.amount.toStringAsFixed(2)} \$'),
+            subtitle: Text('${DateFormat('dd/mm/yyyy hh:mm').format(widget.orderItem.dateTime)}'),
             trailing: IconButton(
               icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
               onPressed: () {
@@ -35,7 +34,9 @@ class _OrderItemState extends State<OrderItem> {
             ),
           ),
           if (_expanded)
-            Container(
+            AnimatedContainer(
+              curve: Curves.easeIn,
+              duration: Duration(milliseconds: 300),
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
               height: min(widget.orderItem.products.length * 20.0 + 10, 100.0),
               child: ListView.builder(

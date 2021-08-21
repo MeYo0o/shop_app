@@ -29,8 +29,7 @@ class UserProductItem extends StatelessWidget {
               icon: Icon(Icons.edit),
               color: Theme.of(context).primaryColor,
               onPressed: () {
-                Navigator.of(context)
-                    .pushNamed(EditProductScreen.id, arguments: id);
+                Navigator.of(context).pushNamed(EditProductScreen.id, arguments: id);
               },
             ),
             IconButton(
@@ -38,8 +37,7 @@ class UserProductItem extends StatelessWidget {
               color: Theme.of(context).errorColor,
               onPressed: () async {
                 try {
-                  await Provider.of<Products>(context, listen: false)
-                      .deleteProduct(id);
+                  await Provider.of<Products>(context, listen: false).deleteProduct(id);
                 } catch (error) {
                   ///handle error here
                   errorScaffold.showSnackBar(

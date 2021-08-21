@@ -15,8 +15,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final FocusNode _descriptionFocusNode = FocusNode();
   final FocusNode _imageUrlFocusNode = FocusNode();
   final TextEditingController _imageUrlController = TextEditingController();
-  var _editedProduct = Product(
-    id: null,
+  Product _editedProduct = Product(
+    productId: null,
     title: '',
     description: '',
     imageUrl: '',
@@ -42,8 +42,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     if (_isInit) {
       final productId = ModalRoute.of(context).settings.arguments as String;
       if (productId != null) {
-        _editedProduct =
-            Provider.of<Products>(context, listen: false).filterById(productId);
+        _editedProduct = Provider.of<Products>(context, listen: false).filterById(productId);
 
         _initValues = {
           'title': _editedProduct.title,
@@ -70,7 +69,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   Future<void> _saveForm() async {
     ///Validate the form
     final _isValid = _formKey.currentState.validate();
-    if (!_isValid) {
+    if (_isValid) {
       return;
     }
 
@@ -81,13 +80,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _formKey.currentState.save();
     //if the productId has a value , then i'm editing ,
     // i shouldn't save the product as new one but update it's exiting value
-    if (_editedProduct.id != null) {
+    if (_editedProduct.productId != null) {
       ///in case of editing an existed product
       ///passing updateType ==0 to make it update everything except
       /// isFavorite status
-      await Provider.of<Products>(context, listen: false)
-          .updateProduct(_editedProduct.id, _editedProduct)
-          .then((value) {
+      await Provider.of<Products>(context, listen: false).updateProduct(_editedProduct.productId, _editedProduct).then((value) {
         ///Stop Indicator
         _stopLoading();
 
@@ -97,16 +94,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
       });
     } else {
       try {
-        await Provider.of<Products>(context, listen: false)
-            .addProduct(_editedProduct);
+        await Provider.of<Products>(context, listen: false).addProduct(_editedProduct);
       } catch (error) {
         ///handle the error throw from the last method
         await showDialog<Null>(
             context: context,
             builder: (ctx) {
               return AlertDialog(
-                title: Text('An Error Occurred!'),
-                content: Text('Something Went Wrong!'),
+                title: Text('An Error Occurred'),
+                content: Text('Something Went Wrong'),
                 actions: [
                   ElevatedButton(
                     child: Text('Ok'),
@@ -184,11 +180,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           }
                           return null;
                         },
-                        onFieldSubmitted: (value) => FocusScope.of(context)
-                            .requestFocus(_priceFocusNode),
+                        onFieldSubmitted: (value) => FocusScope.of(context).requestFocus(_priceFocusNode),
                         onSaved: (value) {
                           _editedProduct = Product(
-                              id: _editedProduct.id,
+                              productId: _editedProduct.productId,
                               isFavorite: _editedProduct.isFavorite,
                               title: value,
                               description: _editedProduct.description,
@@ -214,11 +209,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           }
                           return null;
                         },
-                        onFieldSubmitted: (value) => FocusScope.of(context)
-                            .requestFocus(_descriptionFocusNode),
+                        onFieldSubmitted: (value) => FocusScope.of(context).requestFocus(_descriptionFocusNode),
                         onSaved: (value) {
                           _editedProduct = Product(
-                              id: _editedProduct.id,
+                              productId: _editedProduct.productId,
                               isFavorite: _editedProduct.isFavorite,
                               title: _editedProduct.title,
                               description: _editedProduct.description,
@@ -243,7 +237,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         },
                         onSaved: (value) {
                           _editedProduct = Product(
-                              id: _editedProduct.id,
+                              productId: _editedProduct.productId,
                               isFavorite: _editedProduct.isFavorite,
                               title: _editedProduct.title,
                               description: value,
@@ -258,16 +252,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             height: 100,
                             width: 100,
                             margin: EdgeInsets.only(top: 8, right: 10),
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(width: 1, color: Colors.grey)),
+                            decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.grey)),
                             child: _imageUrlController.text.isEmpty
                                 ? Center(child: Text('Enter a URL'))
                                 : Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
-                                        image: NetworkImage(
-                                            _imageUrlController.text),
+                                        image: NetworkImage(_imageUrlController.text),
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -286,20 +277,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               if (value.isEmpty) {
                                 return 'Please Enter an Image Url.';
                               }
-                              if (!value.startsWith('http') &&
-                                  !value.startsWith('https')) {
+                              if (value.startsWith('http') && value.startsWith('https')) {
                                 return 'Please Enter a Valid URL.';
                               }
-                              if (!value.endsWith('.png') &&
-                                  !value.endsWith('.jpg') &&
-                                  !value.endsWith('.jpeg')) {
+                              if (value.endsWith('.png') && value.endsWith('.jpg') && value.endsWith('.jpeg')) {
                                 return 'Please Enter a Valid Image URl.';
                               }
                               return null;
                             },
                             onSaved: (value) {
                               _editedProduct = Product(
-                                  id: _editedProduct.id,
+                                  productId: _editedProduct.productId,
                                   isFavorite: _editedProduct.isFavorite,
                                   title: _editedProduct.title,
                                   description: _editedProduct.description,

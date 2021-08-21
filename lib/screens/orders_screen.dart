@@ -52,8 +52,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
               return Consumer<Orders>(
                 builder: (context, ordersData, child) => ListView.builder(
                   itemCount: ordersData.orders.length,
-                  itemBuilder: (context, index) =>
-                      OrderItem(ordersData.orders[index]),
+                  itemBuilder: (context, index) => OrderItem(ordersData.orders[index]),
                 ),
               );
             }
@@ -62,7 +61,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
       )
 
       // _isLoading
-      //     ? Center(child: CircularProgressIndicator())
+      //      Center(child: CircularProgressIndicator())
       //     : ListView.builder(
       //         itemCount: ordersData.orders.length,
       //         itemBuilder: (context, index) =>

@@ -14,6 +14,12 @@ class CartItem {
 }
 
 class Cart with ChangeNotifier {
+  //constructor to hold the authToken along with the previousData
+  // loaded to this provider ==> Cart Items
+
+  // final String authToken;
+  // Cart(this.authToken, this._items);
+
   //Map of items already in the cart
   Map<String, CartItem> _items = {};
 

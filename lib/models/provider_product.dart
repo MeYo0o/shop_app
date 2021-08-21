@@ -3,12 +3,12 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Product with ChangeNotifier {
-  final String id, title, description, imageUrl;
+  final String productId, title, description, imageUrl;
   final double price;
   bool isFavorite;
 
   Product({
-    @required this.id,
+    @required this.productId,
     @required this.title,
     @required this.description,
     @required this.imageUrl,
@@ -21,16 +21,22 @@ class Product with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> toggleFavorite() async {
+  Future<void> toggleFavorite(String authToken, String userId) async {
     bool oldFavStatus = isFavorite;
     isFavorite = !isFavorite;
-    final String url =
-        'https://shop-app-79ea9-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json';
+    final String url = 'https://shop-app-79ea9-default-rtdb.europe-west1'
+        '.firebasedatabase.app/userFavorites/$userId/$productId'
+        '.json?auth=$authToken';
     try {
-      final response = await http.patch(
+      //instead of appending new value for 'isFavorite' each time ,
+      // we will replace the existing one with this one , so we used
+      // PUT instead of Patch , also we don't want a key to store the
+      // value to , we will just store it as true/false to the
+      // userId/productId == favStatus
+      final response = await http.put(
         Uri.parse(url),
         body: json.encode(
-          {'isFavorite': isFavorite},
+          isFavorite,
         ),
       );
       //handle reverting fav status back to it's state in app memory

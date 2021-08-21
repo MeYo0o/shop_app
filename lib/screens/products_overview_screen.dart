@@ -10,7 +10,7 @@ import 'package:shop_app/widgets/appDrawer.dart';
 enum FilterOptions { FavoriteOnly, All }
 
 class ProductsOverViewScreen extends StatefulWidget {
-  static const String id = 'POVS';
+  static const String id = 'ProductsOverViewScreen';
 
   @override
   _ProductsOverViewScreenState createState() => _ProductsOverViewScreenState();
@@ -33,26 +33,26 @@ class _ProductsOverViewScreenState extends State<ProductsOverViewScreen> {
     });
   }
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _startIndicator();
+  //   Provider.of<Products>(context, listen: false).fetchNSetProducts().then((_) {
+  //     _stopIndicator();
+  //   });
+  // }
+
   ///To load up products when the app first launches
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
     if (_isInit) {
-      try {
-        _startIndicator();
-        Provider.of<Products>(context).fetchNSetProducts().then((_) {
-          _stopIndicator();
-        });
-      }
-      //handling errors
-      catch (error) {
-        print(error);
+      _startIndicator();
+      Provider.of<Products>(context).fetchNSetProducts().then((_) {
         _stopIndicator();
-      } finally {
-        _stopIndicator();
-      }
+      });
     }
     _isInit = false;
+    super.didChangeDependencies();
   }
 
   @override

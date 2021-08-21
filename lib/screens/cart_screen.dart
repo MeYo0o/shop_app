@@ -38,8 +38,7 @@ class CartScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color:
-                            Theme.of(context).primaryTextTheme.headline6.color,
+                        color: Theme.of(context).primaryTextTheme.headline6.color,
                       ),
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
@@ -109,9 +108,8 @@ class _OrderButtonState extends State<OrderButton> {
           ? null
           : () async {
               _startLoading();
-              await Provider.of<Orders>(context, listen: false).addOrders(
-                  widget.cart.items.values.toList(),
-                  widget.cart.totalAmountOfAllItems);
+              await Provider.of<Orders>(context, listen: false)
+                  .addOrders(widget.cart.items.values.toList(), widget.cart.totalAmountOfAllItems);
 
               _stopLoading();
               widget.cart.clearCartOnOrder();
