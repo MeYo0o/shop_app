@@ -1,16 +1,31 @@
-# shop_app
+# Shop App
 
-This is a simple Shop App using Provider as State Managment -- Applying what i've learned 
+<img src="https://user-images.githubusercontent.com/9119721/117082468-34f05f80-acf7-11eb-9f4d-760c610ec83f.png" height="450"> <img src="https://user-images.githubusercontent.com/9119721/117082642-a29c8b80-acf7-11eb-8acf-6527df569d52.png" height="450"> <img src="https://user-images.githubusercontent.com/9119721/117082790-0757e600-acf8-11eb-8244-8443bb0cdfc3.png" height="450">
 
-## Getting Started
+This app was made through the completion of the course taught by [Maximilian Schwarzmüller on Udemy](https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps).
 
-This project is a starting point for a Flutter application.
+## About the project
 
-A few resources to get you started if this is your first Flutter project:
+The premise of the project centers around a cross platform mobile app (Android & iOS) that allows customers to browse shop items, add them to cart, and place an order. It also allows shop owners to add new items to the store for customers to buy.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+<img src="https://user-images.githubusercontent.com/9119721/117082740-df688280-acf7-11eb-927c-f32d843e3082.png" height="450"> <img src="https://user-images.githubusercontent.com/9119721/117083353-5baf9580-acf9-11eb-8d0f-c7cde9046c67.png" height="450"> <img src="https://user-images.githubusercontent.com/9119721/117083399-771aa080-acf9-11eb-9bbb-24a353d60d93.png" height="450">
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Technologies Used
+
+- Dart language
+- Flutter SDK (Android & iOS)
+- Firebase Realtime Database
+
+## Learning Objectives Achieved
+
+- State Management using the Provider pattern
+- Screen/Route Navigation
+- HTTP Requests
+- User Authentication with Firebase
+- Screen Animations
+
+## What would I change in the future?
+
+- Since the release of Flutter 2.0 (a year after this project was completed), a lot of screen nav functions have been deprecated. Given time and a desire to return to this project I would update the app with the latest routing features
+- Change shop tile images to fit to box rather than crop
+- Use ENV files for sensitive API keys instead of hard coding them (a big no-no that was not taught in the course) - The keys in this repo have been deactivated FYI ;)
